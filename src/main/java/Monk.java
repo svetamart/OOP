@@ -1,14 +1,7 @@
-public class Monk extends Hero{
-
-    int mana;
-    private Monk(String name, int attack, int defense, int[] damage, int health, int speed, int mana) {
-        super(name, attack, defense, damage, health, speed);
-        this.mana = mana;
-    }
+public class Monk extends Healer{
 
     public Monk() {
-        super("Монах", 12, 7, new int[] {-4, -4}, 30, 5);
-        this.mana = 1;
+        super("Монах", 12, 7, new int[] {-4, -4}, 30, 5, 1);
     }
 
     @Override
