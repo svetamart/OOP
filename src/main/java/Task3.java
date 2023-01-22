@@ -30,7 +30,9 @@ public class Task3 {
 
         Scanner scanner = new Scanner(System.in);
 
-        while (true) {
+        boolean enterPressed = true;
+
+        while (enterPressed) {
             String enter = scanner.nextLine();
             if(enter.equals("")) {
                 System.out.println("\nСписок всех персонажей в команде:");
@@ -40,7 +42,7 @@ public class Task3 {
                 System.out.println();
             }
             else {
-                break;
+                enterPressed = false;
             }
         }
     }
