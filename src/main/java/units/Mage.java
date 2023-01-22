@@ -1,3 +1,5 @@
+package units;
+
 public class Mage extends Healer{
 
     public Mage() {

@@ -1,6 +1,10 @@
+package units;
+
+import java.util.ArrayList;
+
 public class Farmer extends Hero{
 
-    int delivery;
+    protected int delivery;
 
     public Farmer() {
         super("Крестьянин", 1, 1, new int[] {1, 1}, 1, 3);
@@ -12,4 +16,8 @@ public class Farmer extends Hero{
         return super.toString() + ", Delivery: " + this.delivery;
     }
 
+    @Override
+    public void step(ArrayList<Hero> list) {
+        delivery = 1;
+    }
 }
