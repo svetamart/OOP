@@ -1,9 +1,11 @@
+package units;
+
 import java.util.ArrayList;
 
 public abstract class Healer extends Hero {
-     int mana;
+     protected int mana;
 
-    public Healer(String name, int attack, int defense, int[] damage, int maxHealth, int speed, int mana) {
+    protected Healer(String name, int attack, int defense, int[] damage, int maxHealth, int speed, int mana) {
         super(name, attack, defense, damage, maxHealth, speed);
         this.mana = mana;
     }
@@ -18,10 +20,12 @@ public abstract class Healer extends Hero {
                 mostDamaged = hero;
             }
         }
-        System.out.println(mostDamaged);
-        mostDamaged.health = mostDamaged.health - this.damage[0];
-        if (mostDamaged.health > mostDamaged.maxHealth) {
-            mostDamaged.health = mostDamaged.maxHealth;
+        if (mostDamaged.health != mostDamaged.maxHealth) {
+            System.out.printf("%s вылечил %s \n", this.name, mostDamaged.name);
+            mostDamaged.health = mostDamaged.health - this.damage[0];
+            if (mostDamaged.health > mostDamaged.maxHealth) {
+                mostDamaged.health = mostDamaged.maxHealth;
+            }
         }
     }
 }

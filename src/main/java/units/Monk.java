@@ -1,3 +1,5 @@
+package units;
+
 public class Monk extends Healer{
 
     public Monk() {
