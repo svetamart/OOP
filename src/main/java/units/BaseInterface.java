@@ -1,8 +1,13 @@
 package units;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface BaseInterface {
-    void step(ArrayList<Hero> list);
+    void step(List<Hero> list);
     String getInfo();
+
+    void die();
+
+
 }

@@ -1,14 +1,17 @@
 package units;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Farmer extends Hero{
 
     protected int delivery;
 
-    public Farmer() {
-        super("Крестьянин", 1, 1, new int[] {1, 1}, 1, 3);
+    public Farmer(List<Hero> team, int x, int y) {
+        super("Крестьянин", 1, 1, new int[] {1, 1}, 1, 3, "Alive");
         this.delivery = 1;
+        super.team = team;
+        super.position = new Vector2(x, y);
     }
 
     @Override
@@ -17,7 +20,10 @@ public class Farmer extends Hero{
     }
 
     @Override
-    public void step(ArrayList<Hero> list) {
-        delivery = 1;
+    public void step(List<Hero> list) {
+
+        if (status.equals("Alive")) {
+            delivery = 1;
+        }
     }
 }
