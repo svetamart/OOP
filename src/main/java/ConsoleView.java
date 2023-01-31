@@ -57,15 +57,36 @@ public class ConsoleView {
     private static String getHeroChar(Vector2 position){
         String str = "| ";
         for (int i = 0; i < Main.GANG_SIZE; i++) {
-            if (Main.blueTeam.get(i).getPosition().isEqual(position)) {
-                str = "|" + AnsiColors.ANSI_BLUE + Main.blueTeam.get(i).getName().toUpperCase().charAt(0) + AnsiColors.ANSI_RESET + "|"
-                        + " ".repeat(3) + AnsiColors.ANSI_GREEN + Main.greenTeam.get(i).getInfo() + AnsiColors.ANSI_RESET
-                        + " ".repeat(5) + AnsiColors.ANSI_BLUE + Main.blueTeam.get(i).getInfo() + AnsiColors.ANSI_RESET;
+            if (Main.blueTeam.get(i).getPosition().isEqual(position) && Main.blueTeam.get(i).getStatus().equals("Alive")) {
+                if (Main.greenTeam.get(i).getStatus().equals("Alive")) {
+                    str = "|" + AnsiColors.ANSI_BLUE + Main.blueTeam.get(i).getName().toUpperCase().charAt(0) + AnsiColors.ANSI_RESET + "|"
+                            + " ".repeat(3) + AnsiColors.ANSI_GREEN + Main.greenTeam.get(i).getInfo() + AnsiColors.ANSI_RESET
+                            + " ".repeat(5) + AnsiColors.ANSI_BLUE + Main.blueTeam.get(i).getInfo() + AnsiColors.ANSI_RESET;
+                }
+                else {
+                    str = "|" + AnsiColors.ANSI_BLUE + Main.blueTeam.get(i).getName().toUpperCase().charAt(0) + AnsiColors.ANSI_RESET + "|"
+                            + " ".repeat(3) + AnsiColors.ANSI_WHITE + Main.greenTeam.get(i).getInfo() + AnsiColors.ANSI_RESET
+                            + " ".repeat(5) + AnsiColors.ANSI_BLUE + Main.blueTeam.get(i).getInfo() + AnsiColors.ANSI_RESET;
+                }
+            } else if (Main.blueTeam.get(i).getPosition().isEqual(position) && Main.blueTeam.get(i).getStatus().equals("Dead")) {
+                if (Main.greenTeam.get(i).getStatus().equals("Alive")) {
+                    str = "|" + AnsiColors.ANSI_WHITE + Main.blueTeam.get(i).getName().toUpperCase().charAt(0) + AnsiColors.ANSI_RESET + "|"
+                            + " ".repeat(3) + AnsiColors.ANSI_GREEN + Main.greenTeam.get(i).getInfo() + AnsiColors.ANSI_RESET
+                            + " ".repeat(5) + AnsiColors.ANSI_WHITE + Main.blueTeam.get(i).getInfo() + AnsiColors.ANSI_RESET;
+                }
+                else {
+                    str = "|" + AnsiColors.ANSI_WHITE + Main.blueTeam.get(i).getName().toUpperCase().charAt(0) + AnsiColors.ANSI_RESET + "|"
+                            + " ".repeat(3) + AnsiColors.ANSI_WHITE + Main.greenTeam.get(i).getInfo() + AnsiColors.ANSI_RESET
+                            + " ".repeat(5) + AnsiColors.ANSI_WHITE + Main.blueTeam.get(i).getInfo() + AnsiColors.ANSI_RESET;
+                }
             }
 
 
             if (Main.greenTeam.get(i).getPosition().isEqual(position)){
                 str = "|" + AnsiColors.ANSI_GREEN + Main.greenTeam.get(i).getName().toUpperCase().charAt(0) + AnsiColors.ANSI_RESET;
+                if (Main.greenTeam.get(i).getStatus().equals("Dead")) {
+                    str = "|" + AnsiColors.ANSI_WHITE + Main.greenTeam.get(i).getName().toUpperCase().charAt(0) + AnsiColors.ANSI_RESET;
+                }
             }
 
         }

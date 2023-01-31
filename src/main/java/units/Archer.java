@@ -2,15 +2,13 @@ package units;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-import java.util.stream.Collectors;
 
 public abstract class Archer extends Hero{
     int shots;
     int maxShots;
-    protected Archer(String name, int attack, int defense, int[] damage,
+    protected Archer(String name, int attack, int defense, int[] damageRange,
                      int maxHealth, int speed, String status, int maxShots) {
-        super(name, attack, defense, damage, maxHealth, speed, status);
+        super(name, attack, defense, damageRange, maxHealth, speed, status);
         this.maxShots = maxShots;
         this.shots = maxShots;
     }
@@ -41,28 +39,48 @@ public abstract class Archer extends Hero{
                 }
             }
 
-            List<Hero> targets = list.stream().filter(n -> n.status.equals("Alive")).toList();
+//            List<Hero> targets = list.stream().filter(n -> n.status.equals("Alive")).toList();
+            List<Hero> targets = new ArrayList<>();
+            for (Hero hero: list) {
+                if (hero.status.equals("Alive")) {
+                    targets.add(hero);
+                }
+            }
 
             if (shots > 0 && !targets.isEmpty()) {
                 shots--;
-                Hero target = targets.get(new Random().nextInt(targets.size()));
-                    System.out.printf("%s выстрелил в %s. \n", this.name, target.name);
-                    target.health = target.health - this.damage;
-                    if (target.health <= 0) {
-                        target.die();
-                    }
-                    for (Farmer hero : farmers) {
-                        if (hero.delivery == 1) {
-                            shots++;
-                            System.out.printf("%s принес стрелу %s. \n",
-                                    hero.name, this.name);
-                            hero.delivery = 0;
-                            break;
-                        }
-                    }
-                } else {
-                    System.out.printf("У %s закончились стрелы. \n", this.name);
+                Hero target = targets.get(((int) getTarget(targets)[1]));
+                float targetDistance = getTarget(targets)[0];
+                System.out.printf("%s выстрелил в %s. \n", this.name, target.name);
+
+                float constMin = 12;
+                float constMax = 4;
+                float attackPower;
+
+                if (targetDistance <= constMax) {
+                    attackPower = damageRange[1];
                 }
+                else if (targetDistance >= constMin) {
+                    attackPower = damageRange[0];
+                }
+                else {
+                    attackPower = damageRange[0] +
+                            ((targetDistance - constMax) / (constMin - constMax)) * (damageRange[1] - damageRange[0]);
+                }
+
+                target.takeDamage(attackPower, this);
+
+                for (Farmer hero : farmers) {
+                    if (hero.delivery == 1) {
+                        shots++;
+                        System.out.printf("%s принес стрелу %s. \n", hero.name, this.name);
+                        hero.delivery = 0;
+                        break;
+                    }
+                }
+            } else if (shots <= 0) {
+                System.out.printf("%s не может стрелять. Закончились стрелы. \n", this.name);
             }
+        }
     }
 }
