@@ -1,52 +1,52 @@
-import units.*;
-
-import java.util.ArrayList;
-import java.util.Random;
-
-public class Task1 {
-    public static void main(String[] args) {
-
-        int teamCount = 10;
-        Random rand = new Random();
-
-        ArrayList<Hero> teamOne = new ArrayList<>();
-        ArrayList<Hero> teamTwo = new ArrayList<>();
-
-        fillTeams(teamOne, rand, teamCount, 1);
-        fillTeams(teamTwo, rand, teamCount, 2);
-
-        System.out.println("\nСписок всех персонажей в команде:");
-        teamTwo.forEach(System.out::println);
-
-        System.out.println("\nПерсонажи с наименьшим уровнем здоровья:");
-        teamTwo.forEach(n -> n.step(teamTwo));
-
-        System.out.println("\nСписок всех персонажей после того, как каждый Маг в команде сделал свой ход:");
-        teamTwo.forEach(System.out::println);
-
-    }
-
-    private static void fillTeams(ArrayList<Hero> team, Random rand, int teamCount, int number) {
-        for (int i = 0; i < teamCount; i++) {
-            int value = rand.nextInt(4);
-            if (number == 1) {
-                switch (value) {
-                    case 0 -> team.add(new Farmer());
-                    case 1 -> team.add(new Rogue());
-                    case 2 -> team.add(new Sniper());
-                    case 3 -> team.add(new Mage());
-                }
-            } else {
-                switch (value) {
-                    case 0 -> team.add(new Farmer());
-                    case 1 -> team.add(new Arbalester());
-                    case 2 -> team.add(new Monk());
-                    case 3 -> team.add(new Spearman());
-                }
-            }
-        }
-    }
-}
+//import units.*;
+//
+//import java.util.ArrayList;
+//import java.util.Random;
+//
+//public class Task1 {
+//    public static void main(String[] args) {
+//
+//        int teamCount = 10;
+//        Random rand = new Random();
+//
+//        ArrayList<Hero> teamOne = new ArrayList<>();
+//        ArrayList<Hero> teamTwo = new ArrayList<>();
+//
+//        fillTeams(teamOne, rand, teamCount, 1);
+//        fillTeams(teamTwo, rand, teamCount, 2);
+//
+//        System.out.println("\nСписок всех персонажей в команде:");
+//        teamTwo.forEach(System.out::println);
+//
+//        System.out.println("\nПерсонажи с наименьшим уровнем здоровья:");
+//        teamTwo.forEach(n -> n.step(teamTwo));
+//
+//        System.out.println("\nСписок всех персонажей после того, как каждый Маг в команде сделал свой ход:");
+//        teamTwo.forEach(System.out::println);
+//
+//    }
+//
+//    private static void fillTeams(ArrayList<Hero> team, Random rand, int teamCount, int number) {
+//        for (int i = 0; i < teamCount; i++) {
+//            int value = rand.nextInt(4);
+//            if (number == 1) {
+//                switch (value) {
+//                    case 0 -> team.add(new Farmer());
+//                    case 1 -> team.add(new Rogue());
+//                    case 2 -> team.add(new Sniper());
+//                    case 3 -> team.add(new Mage());
+//                }
+//            } else {
+//                switch (value) {
+//                    case 0 -> team.add(new Farmer());
+//                    case 1 -> team.add(new Arbalester());
+//                    case 2 -> team.add(new Monk());
+//                    case 3 -> team.add(new Spearman());
+//                }
+//            }
+//        }
+//    }
+//}
 
 
 
