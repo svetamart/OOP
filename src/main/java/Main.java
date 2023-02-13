@@ -10,10 +10,6 @@ public class Main {
     public static void main(String[] args) {
         init();
 
-//        blueTeam.forEach(System.out::println);
-//        System.out.println();
-//        greenTeam.forEach(System.out::println);
-
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
         while (running) {
@@ -52,13 +48,6 @@ public class Main {
         int y = 1;
 
         for (int i = 0; i < GANG_SIZE; i++) {
-//            switch (new Random().nextInt(3)) {
-//                case 0 -> greenTeam.add(new Farmer(greenTeam, x, y++));
-//                case 1 -> greenTeam.add(new Rogue(greenTeam, x, y++));
-//                case 2 -> greenTeam.add(new Spearman(greenTeam, x, y++));
-////                case 3 -> greenTeam.add(new Mage(greenTeam, x, y++));
-////                case 4 -> greenTeam.add(new Arbalester(greenTeam, x, y++));
-//            }
             switch (new Random().nextInt(7)) {
                 case 0 -> greenTeam.add(new Farmer(greenTeam, x, y++));
                 case 1 -> greenTeam.add(new Rogue(greenTeam, x, y++));
@@ -73,13 +62,6 @@ public class Main {
         x = GANG_SIZE;
         y = 1;
         for (int i = 0; i < GANG_SIZE; i++) {
-//            switch (new Random().nextInt(3)) {
-//                case 0 -> blueTeam.add(new Farmer(blueTeam, x, y++));
-//                case 1 -> blueTeam.add(new Rogue(blueTeam, x, y++));
-//                case 2 -> blueTeam.add(new Spearman(blueTeam, x, y++));
-////                case 3 -> blueTeam.add(new Mage(blueTeam, x, y++));
-////                case 4 -> blueTeam.add(new Arbalester(blueTeam, x, y++));
-//            }
             switch (new Random().nextInt(7)) {
                 case 0 -> blueTeam.add(new Farmer(blueTeam, x, y++));
                 case 1 -> blueTeam.add(new Rogue(blueTeam, x, y++));
