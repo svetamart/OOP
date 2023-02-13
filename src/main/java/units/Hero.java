@@ -55,21 +55,27 @@ public abstract class Hero implements BaseInterface {
     }
 
     public void takeDamage(float attackPower, Hero attacker) {
-        if (this.defense > attacker.attack) {
-            this.health -= (attackPower - 1);
-            System.out.printf("%s получил урон %f. \n",
-                    this.name, (attackPower - 1));
+        if (attacker.role.equals("Sniper") || attacker.role.equals("Arbalester")) {
+            if (this.defense > attacker.attack) {
+                this.health -= (attackPower - 1);
+                System.out.printf("%s получил урон %f. \n",
+                        this.name, (attackPower - 1));
+            } else if (this.defense < attacker.attack) {
+                this.health -= (attackPower + 1);
+                System.out.printf("%s получил урон %f. \n",
+                        this.name, (attackPower + 1));
+            } else {
+                this.health -= attackPower;
+                System.out.printf("%s получил урон %f. \n",
+                        this.name, attackPower);
+            }
         }
-        else if (this.defense < attacker.attack) {
-            this.health -= (attackPower + 1);
-            System.out.printf("%s получил урон %f. \n",
-                    this.name, (attackPower + 1));
-        }
-        else {
+        else if (attacker.role.equals("Spearman") || attacker.role.equals("Rogue")) {
             this.health -= attackPower;
             System.out.printf("%s получил урон %f. \n",
                     this.name, attackPower);
         }
+
         if (this.health <= 0) {
             this.die();
         }
@@ -90,19 +96,27 @@ public abstract class Hero implements BaseInterface {
 
     }
 
-    public String getName() {
-        return name;
+    protected boolean checkPosition(Vector2 position)
+    {
+        for (Hero hero: this.team) {
+            if(hero.getPosition().isEqual(position) && hero.getStatus().equals("Alive"))
+                return false;
+        }
+        return true;
     }
 
-    public String getStatus() {
-        return status;
-    }
+    public String getName() { return name; }
 
-//    public int getDamage() { return damage; }
+    public String getStatus() { return status; }
+
+//    public void setPosition(Vector2 position){ this.position = position; }
+
+    public Vector2 getPosition() { return position; }
 
     public int getSpeed() { return speed; }
 
     public int getHealth () { return (int) health; }
+
 
     @Override
     public void step(List<Hero> list) {
@@ -113,7 +127,6 @@ public abstract class Hero implements BaseInterface {
     public void die() {
             System.out.println(name + " пал смертью храбрых.");
             status = "Dead";
-//            team.remove(this);
     }
 
     @Override
@@ -128,8 +141,6 @@ public abstract class Hero implements BaseInterface {
         }
     }
 
-    public Vector2 getPosition() {
-        return position;
-    }
+
 
 }
