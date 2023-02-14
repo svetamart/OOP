@@ -10,10 +10,6 @@ public class Main {
     public static void main(String[] args) {
         init();
 
-        blueTeam.forEach(System.out::println);
-        System.out.println();
-        greenTeam.forEach(System.out::println);
-
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
         while (running) {
