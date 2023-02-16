@@ -1,18 +1,25 @@
 package units;
 
+import console.AnsiColors;
+
 import java.util.List;
+import java.util.Random;
 
 public abstract class Hero implements BaseInterface {
+
+    protected String teamColor;
+    protected String textColor;
     protected String name, role = getClass().getSimpleName();
     protected String status;
     protected static int number;
     protected int attack, defense, maxHealth, speed;
     protected float health;
     protected int[] damageRange;
-//    protected int damage;
 
     protected List<Hero> team;
     protected Vector2 position;
+
+    protected int num;
 
     protected Hero(String name, int attack, int defense, int[] damageRange, int maxHealth, int speed, String status) {
         this.name = String.format("%s_%d", name, ++Hero.number);
@@ -58,22 +65,22 @@ public abstract class Hero implements BaseInterface {
         if (attacker.role.equals("Sniper") || attacker.role.equals("Arbalester")) {
             if (this.defense > attacker.attack) {
                 this.health -= (attackPower - 1);
-                System.out.printf("%s получил урон %f. \n",
-                        this.name, (attackPower - 1));
+                System.out.printf("%s%s%s получил урон %f. \n",
+                        this.textColor, this.name, AnsiColors.ANSI_RESET, (attackPower - 1));
             } else if (this.defense < attacker.attack) {
                 this.health -= (attackPower + 1);
-                System.out.printf("%s получил урон %f. \n",
-                        this.name, (attackPower + 1));
+                System.out.printf("%s%s%s получил урон %f. \n",
+                        this.textColor, this.name, AnsiColors.ANSI_RESET, (attackPower + 1));
             } else {
                 this.health -= attackPower;
-                System.out.printf("%s получил урон %f. \n",
-                        this.name, attackPower);
+                System.out.printf("%s%s%s получил урон %f. \n",
+                        this.textColor, this.name, AnsiColors.ANSI_RESET, attackPower);
             }
         }
         else if (attacker.role.equals("Spearman") || attacker.role.equals("Rogue")) {
             this.health -= attackPower;
-            System.out.printf("%s получил урон %f. \n",
-                    this.name, attackPower);
+            System.out.printf("%s%s%s получил урон %f. \n",
+                    this.textColor, this.name, AnsiColors.ANSI_RESET, attackPower);
         }
 
         if (this.health <= 0) {
@@ -105,11 +112,12 @@ public abstract class Hero implements BaseInterface {
         return true;
     }
 
+    public String getTeamColor() {
+        return teamColor;
+    }
     public String getName() { return name; }
 
     public String getStatus() { return status; }
-
-//    public void setPosition(Vector2 position){ this.position = position; }
 
     public Vector2 getPosition() { return position; }
 
@@ -117,15 +125,21 @@ public abstract class Hero implements BaseInterface {
 
     public int getHealth () { return (int) health; }
 
+    public int getNum () { return num; }
+
+    public void setNum() {
+        Random rand = new Random();
+        this.num = rand.nextInt(0, 1000);
+    }
+
 
     @Override
     public void step(List<Hero> list) {
-
     }
 
     @Override
     public void die() {
-            System.out.println(name + " пал смертью храбрых.");
+            System.out.println(this.textColor + name + AnsiColors.ANSI_RESET + " пал смертью храбрых.");
             status = "Dead";
     }
 
