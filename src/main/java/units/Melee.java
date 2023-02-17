@@ -1,5 +1,7 @@
 package units;
 
+import console.AnsiColors;
+
 import java.util.List;
 
 public abstract class Melee extends Hero {
@@ -11,12 +13,15 @@ public abstract class Melee extends Hero {
 
     @Override
     public void step(List<Hero> list) {
+        setNum();
         if (status.equals("Alive")) {
             List<Hero> targets = list.stream().filter(n -> n.getStatus().equals("Alive")).toList();
             if (!targets.isEmpty()) {
                 Hero target = targets.get(((int) getTarget(targets)[1]));
                 float targetDistance = getTarget(targets)[0];
-                System.out.println(this.name + " идет к " + target.name + ". Расстояние до цели: " + targetDistance);
+                System.out.println(this.textColor + this.name + AnsiColors.ANSI_RESET +
+                        " идет к " + target.textColor + target.name + AnsiColors.ANSI_RESET +
+                        ". Расстояние до цели: " + targetDistance);
 
                 if ((int) targetDistance <= 1) {
                     float attackPower = 0;
@@ -29,7 +34,9 @@ public abstract class Melee extends Hero {
                     } else if (damage < 0) {
                         attackPower = this.damageRange[0];
                     }
-                    System.out.printf("%s нанес удар %s. \n", this.name, target.name);
+                    System.out.printf("%s%s%s нанес удар %s%s%s. \n",
+                            this.textColor, this.name, AnsiColors.ANSI_RESET,
+                            target.textColor, target.name, AnsiColors.ANSI_RESET);
                     target.takeDamage(attackPower, this);
                     return;
                 }

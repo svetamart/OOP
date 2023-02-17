@@ -1,5 +1,7 @@
 package units;
 
+import console.AnsiColors;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +33,7 @@ public abstract class Archer extends Hero{
 
     @Override
     public void step(List<Hero> list) {
+        setNum();
         if (this.status.equals("Alive")) {
             List<Farmer> farmers = new ArrayList<>();
             for (Hero hero : team) {
@@ -51,7 +54,9 @@ public abstract class Archer extends Hero{
                 shots--;
                 Hero target = targets.get(((int) getTarget(targets)[1]));
                 float targetDistance = getTarget(targets)[0];
-                System.out.printf("%s выстрелил в %s. \n", this.name, target.name);
+                System.out.printf("%s%s%s выстрелил в %s%s%s. \n",
+                        this.textColor, this.name, AnsiColors.ANSI_RESET,
+                        target.textColor, target.name, AnsiColors.ANSI_RESET);
 
                 float constMin = 12;
                 float constMax = 4;
@@ -73,13 +78,15 @@ public abstract class Archer extends Hero{
                 for (Farmer hero : farmers) {
                     if (hero.delivery == 1) {
                         shots++;
-                        System.out.printf("%s принес стрелу %s. \n", hero.name, this.name);
+                        System.out.printf("%s%s%s принес стрелу %s%s%s. \n",
+                                this.textColor, hero.name, AnsiColors.ANSI_RESET,
+                                this.textColor, this.name, AnsiColors.ANSI_RESET);
                         hero.delivery = 0;
                         break;
                     }
                 }
             } else if (shots <= 0) {
-                System.out.printf("%s не может стрелять. Закончились стрелы. \n", this.name);
+                System.out.printf("%s%s%s не может стрелять. Закончились стрелы. \n", this.textColor, this.name, AnsiColors.ANSI_RESET);
             }
         }
     }
